@@ -1,11 +1,17 @@
-# 讀取檔案
+import os # operating system (作業系統)
+
 products = []
-with open('products.csv', 'r', encoding='utf-8') as f:
-	for line in f:
-		if '商品,價格' in line:
-			continue
-		name,price = line.strip().split(',')
-		products.append([name, price])
+# 檢查檔案在不在
+if os.path.isfile('products.csv'):
+	print('讀取舊檔')
+	with open('products.csv', 'r', encoding='utf-8') as f: # 讀取檔案
+		for line in f:
+			if '商品,價格' in line:
+				continue
+			name,price = line.strip().split(',')
+			products.append([name, price])
+else:
+	print('創建新檔')
 
 # 讓使用者輸入
 while True:
@@ -26,4 +32,3 @@ with open('products.csv', 'w', encoding='utf-8') as f: # encoing (編碼)
 	f.write('商品,價格\n')
 	for p in products:
 		f.write(p[0] + ',' + str(p[1]) + '\n')
-
